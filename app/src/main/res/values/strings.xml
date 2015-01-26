@@ -4,5 +4,26 @@
     <string name="app_name">SandwichShop</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="button_bread_wheat">Wheat</string>
+    <string name="button_bread_white">White</string>
+    <string name="button_bread_rye">Rye</string>
+    <string name="no_bread">No bread</string>
+    <string name="checkbox_ketchup">Ketchup</string>
+    <string name="checkbox_mustad">Mustard</string>
+    <string name="checkbox_tomato">Tomato</string>
+    <string name="checkbox_mayonnaise">Mayonnaise</string>
+    <string name="checkbox_lettuce">Lettuce</string>
+    <string name="checkbox_cheese">Cheese</string>
+    <string name="checkbox_egg">Egg</string>
+    <string name="checkbox_bacon">Bacon</string>
+    <string name="checkbox_olives">Olives</string>
+    <string name="checkbox_onion">Onion</string>
+    <string name="button_place_order">Place order</string>
+    <string name="text_title">Customize your sandwich</string>
+    <string name="title_activity_confirmation">ConfirmationActivity</string>
+    <string name="text_bread">Bread:</string>
+    <string name="text_sumary_first">Your sandwich with</string>
+    <string name="bread">bread</string>
+    <string name="prepared">is being prepared</string>
 
 </resources>
