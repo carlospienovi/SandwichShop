@@ -3,7 +3,6 @@ package com.carlospienovi.sandwichshop;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +33,7 @@ public class OrderFormActivity extends ActionBarActivity {
 
     private void initializeComponents() {
         mBreadOptions = (RadioGroup) findViewById(R.id.radio_group_bread_options);
-        extras = new ArrayList<CheckBox>();
+        extras = new ArrayList<>();
         mButtonPlaceOrder = (Button) findViewById(R.id.button_place_order);
         mMustard = (CheckBox) findViewById(R.id.checkbox_mustard);
         mMayonnaise = (CheckBox) findViewById(R.id.checkbox_mayonnaise);

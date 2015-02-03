@@ -6,9 +6,6 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-/**
- * Created by carlos.pienovi on 02/02/2015.
- */
 public class Sandwich implements Parcelable {
 
     private String bread;
@@ -24,22 +21,6 @@ public class Sandwich implements Parcelable {
     private boolean onion;
 
     public Sandwich() {
-    }
-
-    public Sandwich(String bread, Boolean ketchup, Boolean mustard, Boolean mayonnaise,
-                    Boolean tomato, Boolean lettuce, Boolean cheese, Boolean egg, Boolean bacon,
-                    Boolean olives, Boolean onion) {
-        this.setBread(bread);
-        this.setKetchup(ketchup);
-        this.setMustard(mustard);
-        this.setMayonnaise(mayonnaise);
-        this.setTomato(tomato);
-        this.setLettuce(lettuce);
-        this.setCheese(cheese);
-        this.setEgg(egg);
-        this.setBacon(bacon);
-        this.setOlives(olives);
-        this.setOnion(onion);
     }
 
     public Sandwich(Parcel in) {
@@ -181,7 +162,7 @@ public class Sandwich implements Parcelable {
     }
 
     public ArrayList<String> toppingsAsString(Context context) {
-        ArrayList<String> toppings = new ArrayList<String>();
+        ArrayList<String> toppings = new ArrayList<>();
         if (ketchup) {
             toppings.add(context.getResources().getString(R.string.checkbox_ketchup));
         }
