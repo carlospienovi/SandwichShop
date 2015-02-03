@@ -25,5 +25,9 @@
     <string name="text_sumary_first">Your sandwich with</string>
     <string name="bread">bread</string>
     <string name="prepared">is being prepared</string>
+    <string name="title_activity_sandwich_count">SandwichCountActivity</string>
+    <string name="text_sandwich_count">How many sandwiches?</string>
+    <string name="button_to_order">Order details</string>
+    <string name="no_sandwiches">No sandwiches</string>
 
 </resources>

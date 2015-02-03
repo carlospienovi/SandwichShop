@@ -1,7 +1,6 @@
 package com.carlospienovi.sandwichshop;
 
 import android.content.Intent;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +15,9 @@ import java.util.ArrayList;
 
 
 public class OrderFormActivity extends ActionBarActivity {
+
+    public static final String SANDWICH_COUNT = "SANDWICH_COUNT";
+    public static final String SANDWICH_LIST = "SANDWICH_LIST";
 
     Button mButtonPlaceOrder;
     RadioGroup mBreadOptions;
@@ -58,22 +60,27 @@ public class OrderFormActivity extends ActionBarActivity {
         mButtonPlaceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(OrderFormActivity.this, ConfirmationActivity.class);
-                i.putExtra(ConfirmationActivity.BREAD, getBreadType(mBreadOptions.getCheckedRadioButtonId()));
-                i.putExtra(ConfirmationActivity.TOPPING_OPTIONS, getCheckedToppings());
-                startActivity(i);
+                int sandwichesLeft = getIntent().getExtras().getInt(SANDWICH_COUNT) - 1;
+                if (sandwichesLeft <= 0) {
+                    toConfirmationScreen();
+                } else {
+                    toNextSandwich(sandwichesLeft);
+                }
             }
         });
     }
 
-    private ArrayList<String> getCheckedToppings() {
-        ArrayList<String> extraToppings = new ArrayList<String>();
-        for (CheckBox c : extras) {
-            if (c.isChecked()) {
-                extraToppings.add(c.getText().toString());
-            }
-        }
-        return extraToppings;
+    private void toNextSandwich(int sandwichesLeft) {
+        Intent i = new Intent(this, OrderFormActivity.class);
+        i.putExtra(SANDWICH_COUNT, sandwichesLeft);
+        i.putExtra(SANDWICH_LIST, addSandwichToList(getSandwichFromOptions()));
+        startActivity(i);
+    }
+
+    private void toConfirmationScreen() {
+        Intent i = new Intent(this, ConfirmationActivity.class);
+        i.putExtra(SANDWICH_LIST, addSandwichToList(getSandwichFromOptions()));
+        startActivity(i);
     }
 
     private String getBreadType(int radioButtonId) {
@@ -108,5 +115,53 @@ public class OrderFormActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Sandwich getSandwichFromOptions() {
+        Sandwich sandwich = new Sandwich();
+        sandwich.setBread(getBreadType(mBreadOptions.getCheckedRadioButtonId()));
+        for (CheckBox c : extras) {
+            if (c.isChecked()) {
+                switch (c.getId()) {
+                    case R.id.checkbox_bacon:
+                        sandwich.setBacon(true);
+                        break;
+                    case R.id.checkbox_cheese:
+                        sandwich.setCheese(true);
+                        break;
+                    case R.id.checkbox_egg:
+                        sandwich.setEgg(true);
+                        break;
+                    case R.id.checkbox_ketchup:
+                        sandwich.setKetchup(true);
+                        break;
+                    case R.id.checkbox_lettuce:
+                        sandwich.setLettuce(true);
+                        break;
+                    case R.id.checkbox_mayonnaise:
+                        sandwich.setMayonnaise(true);
+                        break;
+                    case R.id.checkbox_mustard:
+                        sandwich.setMustard(true);
+                        break;
+                    case R.id.checkbox_olives:
+                        sandwich.setOlives(true);
+                        break;
+                    case R.id.checkbox_onion:
+                        sandwich.setOnion(true);
+                        break;
+                    case R.id.checkbox_tomato:
+                        sandwich.setTomato(true);
+                        break;
+                }
+            }
+        }
+        return sandwich;
+    }
+
+    private ArrayList<Sandwich> addSandwichToList(Sandwich sandwich) {
+        ArrayList<Sandwich> actual = getIntent().getExtras().getParcelableArrayList(SANDWICH_LIST);
+        actual.add(sandwich);
+        return actual;
     }
 }

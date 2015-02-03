@@ -12,9 +12,6 @@ import java.util.ArrayList;
 
 public class ConfirmationActivity extends ActionBarActivity {
 
-    public static final String BREAD = "BreadOption";
-    public static final String TOPPING_OPTIONS = "ToppingOptions";
-
     TextView mTextConfirmation;
 
     @Override
@@ -22,19 +19,32 @@ public class ConfirmationActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
         mTextConfirmation = (TextView) findViewById(R.id.text_confirmation);
-        String breadType = getIntent().getStringExtra(BREAD);
-        ArrayList<String> toppings = getIntent().getStringArrayListExtra(TOPPING_OPTIONS);
-        String text;
-        text = getResources().getString(R.string.text_sumary_first) + " " + breadType + " " + getResources().getString(R.string.bread);
-        if (!toppings.isEmpty()) {
-            for (int i = 0; i < toppings.size(); i++) {
-                text = text + ", " + toppings.get(i);
-            }
-        }
-        text = text + " " + getResources().getString(R.string.prepared) + ".";
-        mTextConfirmation.setText(text);
+        ArrayList<Sandwich> sandwiches = getIntent().getExtras()
+                .getParcelableArrayList(OrderFormActivity.SANDWICH_LIST);
+        setOrderSummary(sandwiches);
     }
 
+    private void setOrderSummary(ArrayList<Sandwich> sandwiches) {
+        if (sandwiches.isEmpty()) {
+            mTextConfirmation.setText(getString(R.string.no_sandwiches));
+        } else {
+            String text = "";
+            for (Sandwich s : sandwiches) {
+                String breadType = s.getBread();
+                ArrayList<String> toppings = s.toppingsAsString(this);
+                text = text + getResources().getString(R.string.text_sumary_first)
+                        + " " + breadType + " " + getResources().getString(R.string.bread);
+                if (!toppings.isEmpty()) {
+                    for (int i = 0; i < toppings.size(); i++) {
+                        text = text + ", " + toppings.get(i);
+                    }
+                }
+                text = text + " " + getResources().getString(R.string.prepared) + ".\n\n";
+            }
+            mTextConfirmation.setText(text);
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
